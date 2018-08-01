@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+        <!-- 配置hibernate -->
+ <hibernate-mapping package="com.qf.hrm.pojo">
+ 	<class name="Notice" table="t_notice" lazy="false">
+ 		<id name="nId">
+ 			<generator class="native"></generator>
+ 		</id>
+ 		<!-- 配置普通属性 -->
+ 		<property name="nTitle"></property>
+ 		<property name="content"></property>
+ 		<property name="nDate"></property>
+ 		
+ 		<many-to-one name="user" class="User" column="id" cascade="save-update" not-found="ignore"></many-to-one>
+ 	</class>
+ </hibernate-mapping>

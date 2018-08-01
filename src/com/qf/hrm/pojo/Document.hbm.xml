@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+        <!-- 配置hibernate -->
+ <hibernate-mapping package="com.qf.hrm.pojo">
+ 	<class name="Document" table="t_document" lazy="false">
+ 		<id name="dId">
+ 			<generator class="native"></generator>
+ 		</id>
+ 		<!-- 配置普通属性 -->
+ 		<property name="title"></property>
+ 		<property name="fileName"></property>
+ 		<property name="dRemark"></property>
+ 		<property name="dDate"></property>
+ 		
+ 		<!-- 配置 多對一  多的一方维护
+ 		name:配置的是在我们的这个employy对象中的维护的这个关系对象的名字
+        column的值会主动的映射到前面的这个类（Dept）的主键上面去
+ 		-->
+ 		<many-to-one name="user" class="User" column="id" cascade="save-update" not-found="ignore"></many-to-one>
+ 	</class>
+ </hibernate-mapping>

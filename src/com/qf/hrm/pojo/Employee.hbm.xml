@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+        <!-- 配置hibernate -->
+ <hibernate-mapping package="com.qf.hrm.pojo">
+ 		<class name="Employee" table="t_employee" lazy="false">
+ 		<id name="eId">
+ 			<generator class="native"></generator>
+ 		</id>
+ 		<!-- 配置普通属性 -->
+ 		<property name="eName"></property>
+ 		<property name="cardId"></property>
+ 		<property name="address"></property>
+ 		<property name="postCode"></property>
+ 		<property name="tel"></property>
+ 		<property name="phone"></property>
+ 		<property name="numQQ"></property>
+ 		<property name="email"></property>
+ 		<property name="sex"></property>
+ 		<property name="party"></property>
+ 		<property name="birthday"></property>
+ 		<property name="race"></property>
+ 		<property name="education"></property>
+ 		<property name="speciality"></property>
+ 		<property name="hobby"></property>
+ 		<property name="eRemark"></property>
+ 		<property name="eDate"></property>
+ 		
+ 		<!-- 配置 多對一  多的一方维护
+ 		name:配置的是在我们的这个employy对象中的维护的这个关系对象的名字
+        column的值会主动的映射到前面的这个类（Dept）的主键上面去
+ 		-->
+ 		<many-to-one name="dept" class="Dept" column="d_id" cascade="save-update" not-found="ignore"></many-to-one>
+ 		<many-to-one name="job" class="Job" column="j_id" cascade="save-update" not-found="ignore"></many-to-one>
+ 		
+ 	</class>
+ </hibernate-mapping>

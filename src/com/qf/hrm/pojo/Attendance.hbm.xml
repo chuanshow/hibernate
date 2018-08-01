@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+        <!-- 配置hibernate -->
+ <hibernate-mapping package="com.qf.hrm.pojo">
+ 	<class name="Attendance" table="t_attendance" lazy="false">
+ 		<id name="aId">
+ 			<generator class="native"></generator>
+ 		</id>
+ 		<!-- 配置普通属性 -->
+ 		<property name="sDate"></property>
+ 		<property name="eDate"></property>
+ 		<property name="uId"></property>
+ 		<property name="uName"></property>
+ 		<property name="day"></property>
+ 		<property name="Flag"></property>
+ 	</class>
+ </hibernate-mapping>

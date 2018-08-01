@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+       
+        <!--3 将hihbernate中的连接数据库的相关信息配置到Spring中 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+			<property name="acquireIncrement" value="2"></property>
+			<property name="maxPoolSize" value="100"></property>
+			<property name="minPoolSize" value="2"></property>
+			<property name="maxStatements" value="100"></property>
+			<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+			<property name="jdbcUrl" value="jdbc:mysql:///hrmapp"></property>
+			<property name="user" value="root"></property>
+			<property name="password" value="123456"></property>
+		</bean>
+        <!--4 Spring 和 hibernate 整合的关键点是sessionFactory的创建问题 -->
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        	<property name="dataSource" ref="dataSource"></property>
+        	
+        	<!-- 将hibernate的配置文件写到这里来 -->
+        		<property name="hibernateProperties">
+        			<props>
+        				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+        				<prop key="hibernate.hbm2ddl.auto">update</prop>
+					    <prop key="hibernate.show_sql">true</prop>
+					    <prop key="hibernate.format_sql">true</prop>
+        			</props>
+        		</property>
+        		<!-- 编写hibernate的映射配置 -->
+        		<property name="mappingDirectoryLocations">
+	        		<list>
+			    <!--配置mapping映射文件的根路径就好了-->
+					    <value>classpath:com/qf/hrm/pojo</value>
+					 </list>
+				</property>
+			</bean>
+        <!--5 配置事务 -->
+        <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        	<property name="dataSource" ref="dataSource"></property>
+        	<property name="sessionFactory" ref="sessionFactory"></property>
+        </bean>
+        <!-- 配置IOC/DI扫描器 -->
+        <context:component-scan base-package="com.qf.hrm"></context:component-scan>
+        <!-- 配置AOP扫描 -->
+        <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+        <!-- 应用这个事务 -->
+        <tx:annotation-driven transaction-manager="txManager"  proxy-target-class="true"/>
+</beans>

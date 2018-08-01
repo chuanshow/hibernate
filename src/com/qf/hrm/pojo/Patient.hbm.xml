@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+        <!-- 配置hibernate -->
+ <hibernate-mapping package="com.qf.hrm.pojo">
+ 	<class name="Patient" table="t_patient" lazy="false">
+ 		<id name="patient_number"  type="java.lang.String">
+ 			<generator class="assigned"></generator>
+ 		</id>
+ 		<!-- 配置普通属性 -->
+ 		<property name="inhos_date"></property>
+ 		<property name="card_id"></property>
+ 		<property name="customer_name"></property>
+ 		<property name="sex"></property>
+ 		<property name="sectionoffice"></property>
+ 		<property name="bed_number"></property>
+ 		<property name="fault_name"></property>
+ 		<property name="customer_mobilephone"></property>
+ 		<property name="unit_work"></property>
+ 		<property name="commonality_name"></property>
+ 		<property name="medical_model"></property>
+ 		<property name="medical_caust"></property>
+ 		<property name="medical_state"></property>
+ 		<property name="patient_identification"></property>
+ 		<property name="occupation"></property>
+ 	</class>
+ </hibernate-mapping>
